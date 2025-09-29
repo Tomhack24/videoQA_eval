@@ -16,14 +16,15 @@ def main():
     Ground_truth = merged_df["Evidence"].tolist()
     Predict = merged_df["Predicted Evidence"].tolist()
 
-    recall, precision, exact_match = culcurate_recall_precision(Event_number, Ground_truth, Predict)
+    recall, precision, f1, exact_match = culcurate_recall_precision(Event_number, Ground_truth, Predict)
     print(f"Recall: {recall:.4f}")
     print(f"Precision: {precision:.4f}")
+    print(f"F1 Score: {f1:.4f}")
     print(f"Exact Match: {exact_match}")
     PREDICT_QWEN_VL_CSV = "PREDICT/QA_DATASET_INFERENCE.csv"
     PREDICT_ID = PREDICT_QWEN_VL_PATH.split("/")[1].replace("QA_DATASET_INFERENCE_", "").replace(".jsonl", "")
     with open(PREDICT_QWEN_VL_CSV, "a") as f:
-        f.write(f"{PREDICT_ID},"f"{recall:.4f},{precision:.4f},{exact_match}\n")
+        f.write(f"{PREDICT_ID},"f"{recall:.4f},{precision:.4f},{f1:.4f},{exact_match}\n")
 
 if __name__ == "__main__":
     main()

@@ -80,16 +80,21 @@ def culcurate_recall_precision(event_number:List[int] , ground_truth: List[List[
         if exact_match:
             total_exact_match += 1
 
-    return total_recall / len(event_number), total_precision / len(event_number), total_exact_match
+    recall = total_recall / len(event_number) if len(event_number) > 0 else 0.0
+    precision = total_precision / len(event_number) if len(event_number) > 0 else 0.0
+    f1 = (2 * recall * precision) / (recall + precision) if (recall + precision) > 0 else 0.0
+
+    return recall, precision, f1, total_exact_match 
 
 
 def main():
     event_number = [5, 10, 8]
     ground_truth = [[1, 2], [3, 4, 5], []]
     predict = [[2, 3], [3, 4], []]
-    recall, precision, exact_match = culcurate_recall_precision(event_number, ground_truth, predict)
+    recall, precision, f1, exact_match = culcurate_recall_precision(event_number, ground_truth, predict)
     print(f"Recall: {recall:.4f}")
     print(f"Precision: {precision:.4f}")
+    print(f"F1 Score: {f1:.4f}")
     print(f"Exact Match: {exact_match}")
 
 
