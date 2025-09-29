@@ -85,8 +85,8 @@ def culcurate_recall_precision(event_number:List[int] , ground_truth: List[List[
 
 def main():
     event_number = [5, 10, 8]
-    ground_truth = [[1, 2], [3, 4, 5], [1, 2, 3]]
-    predict = [[2, 3], [3, 4], [1, 2, 3]]
+    ground_truth = [[1, 2], [3, 4, 5], []]
+    predict = [[2, 3], [3, 4], []]
     recall, precision, exact_match = culcurate_recall_precision(event_number, ground_truth, predict)
     print(f"Recall: {recall:.4f}")
     print(f"Precision: {precision:.4f}")

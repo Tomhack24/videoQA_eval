@@ -1,2 +1,5 @@
 *.sif
 scripts/
+
+*.pyc
+__pycache__/
