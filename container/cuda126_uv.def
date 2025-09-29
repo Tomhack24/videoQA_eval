@@ -1,0 +1,28 @@
+Bootstrap: docker
+From: nvidia/cuda:12.6.1-base-ubuntu24.04
+
+%labels
+    Author YoshiokaTomoki
+    Version v0.1
+    Description "CUDA 12.6 + PyTorch + uv for HPC"
+
+%post  
+    echo "$HOME"
+    
+    export DEBIAN_FRONTEND=noninteractive
+    apt-get update && apt-get install -y --no-install-recommends \
+        git curl ca-certificates build-essential \
+        && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+
+    curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR=/opt/bin sh
+    export PATH=/opt/bin:$PATH
+    PYTHON_VERSION="3.11.12"
+    uv python install $PYTHON_VERSION
+    
+    apt-get purge -y --auto-remove build-essential && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+%environment
+    export LC_ALL=C.UTF-8
+    export LANG=C.UTF-8
+    export PATH=/opt/bin:$PATH
