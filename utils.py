@@ -1,4 +1,39 @@
 from typing import List, Tuple
+from typing import List, Dict
+import evaluate
+
+def calculate_answer_scores(hypotheses: List[str], references: List[str]) -> Dict[str, float]:
+    """
+    仮説と参照のリストを受け取り、BLEU、ROUGE、BERTScoreを計算する関数。
+
+    Args:
+        hypotheses (List[str]): 生成されたテキスト（仮説）のリスト。
+        references (List[str]): 正解テキスト（参照）のリスト。
+
+    Returns:
+        Dict[str, float]: 各評価指標のスコアを含む辞書。
+    """
+    results = {}
+
+    # 1. BLEUスコアの計算
+    bleu_scorer = evaluate.load('bleu')
+    bleu_results = bleu_scorer.compute(predictions=hypotheses, references=references)
+    results['bleu'] = bleu_results['bleu']
+
+    # 2. ROUGEスコアの計算
+    rouge_scorer = evaluate.load('rouge')
+    rouge_results = rouge_scorer.compute(predictions=hypotheses, references=references)
+    results.update(rouge_results) # rouge1, rouge2, rougeL, rougeLsum を追加
+
+    # 3. BERTScoreの計算
+    # BERTScoreは計算に時間がかかる場合があります。
+    # また、モデルのダウンロードが初回実行時に発生します。
+    bert_scorer = evaluate.load('bertscore')
+    bert_results = bert_scorer.compute(predictions=hypotheses, references=references, lang="en")
+    # F1スコアの平均値を取得
+    results['bertscore_f1'] = sum(bert_results['f1']) / len(bert_results['f1'])
+
+    return results
 
 def to_binary_vector(event_number: int, indices: list[int]) -> list[int]:
     """

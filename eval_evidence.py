@@ -4,7 +4,7 @@ from utils import culcurate_recall_precision
 
 QA_DATASET_GEMINI_PATH = "GROUND_TRUTH/QA_DATASET_GEMINI.jsonl"
 PREDICT_QWEN_VL_PATH = "PREDICT/QA_DATASET_INFERENCE_32B.jsonl"
-
+PREDICT_QWEN_VL_CSV = "PREDICT/QA_DATASET_INFERENCE.csv"
 def main():
     df_gt = pd.read_json(QA_DATASET_GEMINI_PATH, lines=True)
     df_pr = pd.read_json(PREDICT_QWEN_VL_PATH, lines=True)
@@ -21,7 +21,7 @@ def main():
     print(f"Precision: {precision:.4f}")
     print(f"F1 Score: {f1:.4f}")
     print(f"Exact Match: {exact_match}")
-    PREDICT_QWEN_VL_CSV = "PREDICT/QA_DATASET_INFERENCE.csv"
+    
     PREDICT_ID = PREDICT_QWEN_VL_PATH.split("/")[1].replace("QA_DATASET_INFERENCE_", "").replace(".jsonl", "")
     with open(PREDICT_QWEN_VL_CSV, "a") as f:
         f.write(f"{PREDICT_ID},"f"{recall:.4f},{precision:.4f},{f1:.4f},{exact_match}\n")
