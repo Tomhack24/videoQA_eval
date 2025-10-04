@@ -5,5 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "bert-score>=0.3.13",
+    "evaluate>=0.4.6",
     "pandas>=2.3.2",
+    "rouge-score>=0.1.2",
+    "sacrebleu>=2.5.1",
 ]

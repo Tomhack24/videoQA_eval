@@ -87,8 +87,9 @@ def culcurate_recall_precision_module(event_number: int, ground_truth: List[int]
 
     recall = true_positive / (true_positive + false_negative) if (true_positive + false_negative) > 0 else 0.0
     precision = true_positive / (true_positive + false_positive) if (true_positive + false_positive) > 0 else 0.0
+    f1 = (2 * recall * precision) / (recall + precision) if (recall + precision) > 0 else 0.0
 
-    return recall, precision, exact_match
+    return recall, precision, f1, exact_match
 
 
 def culcurate_recall_precision(event_number:List[int] , ground_truth: List[List[int]], predict: List[List[int]]) -> Tuple[float, float, int]:
@@ -106,20 +107,18 @@ def culcurate_recall_precision(event_number:List[int] , ground_truth: List[List[
 
     total_recall = 0.0
     total_precision = 0.0
+    total_f1 = 0.0
     total_exact_match = 0
 
     for en, gt, pred in zip(event_number, ground_truth, predict):
-        recall, precision, exact_match = culcurate_recall_precision_module(en, gt, pred)
+        recall, precision, f1, exact_match = culcurate_recall_precision_module(en, gt, pred)
         total_recall += recall
         total_precision += precision
+        total_f1 += f1
         if exact_match:
             total_exact_match += 1
 
-    recall = total_recall / len(event_number) if len(event_number) > 0 else 0.0
-    precision = total_precision / len(event_number) if len(event_number) > 0 else 0.0
-    f1 = (2 * recall * precision) / (recall + precision) if (recall + precision) > 0 else 0.0
-
-    return recall, precision, f1, total_exact_match 
+    return total_recall / len(event_number), total_precision / len(event_number), total_f1 / len(event_number), total_exact_match
 
 
 def main():
