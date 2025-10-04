@@ -72,6 +72,7 @@
 {"QA_number": "072", "Answer": "Dr. Biden's engagement shifts from formal to interactive.", "Evidence": [2, 4, 7]}
 {"QA_number": "073", "Answer": "By opening the radiator cap and pouring coolant into the reservoir.", "Evidence": [5, 6, 7, 8, 9]}
 {"QA_number": "074", "Answer": "Open reservoir cap, pour coolant, close cap.", "Evidence": [4, 5, 6, 7, 8, 9, 10, 11]}
+{"QA_number": "075", "Answer": "Closes the coolant reservoir cap.", "Evidence": [7, 8]}
 {"QA_number": "076", "Answer": "By striking out the final batter without allowing a hit.", "Evidence": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
 {"QA_number": "077", "Answer": "From an initial embrace, the celebration evolved into a team-wide jubilation, culminating in individual accolades and fan interaction.", "Evidence": [9, 10, 11, 12, 13]}
 {"QA_number": "078", "Answer": "Teammates' defensive plays and support led to the victory.", "Evidence": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]}
